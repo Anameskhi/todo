@@ -25,7 +25,7 @@ import { ListComponent } from './pages/list/list.component';
  
 
 
-  ],
+  ], 
   imports: [
     BrowserModule,
     AppRoutingModule,
