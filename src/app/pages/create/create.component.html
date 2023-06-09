@@ -1,0 +1,30 @@
+<div class="container-fluid" style="background-color: rgb(148, 154, 202);">
+  <div class="row">
+    <div class="col-md-3" style="padding: 0;">
+      <div style="height: 93vh; padding-right: 1px;">
+        <mat-card style="margin: 15px;">
+          <form style="margin: 0;" [formGroup]="form" (submit)="submit()">
+            <mat-form-field style="margin-bottom: 10px;">
+              <mat-label>Title</mat-label>
+              <input matInput formControlName="title">
+            </mat-form-field><br>
+            <mat-form-field style="margin-bottom: 10px;">
+              <mat-label>Select</mat-label>
+              <mat-select formControlName="responsiblePersonId">
+                <mat-option *ngFor="let person of persons$ | async" [value]="person">{{person.fullName}}</mat-option>
+              </mat-select>
+            </mat-form-field><br>
+            <mat-form-field>
+              <mat-label>Select Date</mat-label>
+              <input formControlName="dueDate" matInput [matDatepicker]="picker" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field><br>
+            <button mat-raised-button color="primary" [disabled]="form.invalid" style="margin-bottom: 10px;">Add ToDo</button>
+          </form>
+        </mat-card>
+      </div>
+    </div>
+ 
+  </div>
+</div>
