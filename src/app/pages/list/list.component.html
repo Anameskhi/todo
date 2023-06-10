@@ -13,7 +13,7 @@
         <div class="example-box" *ngFor="let item of todo" cdkDrag>
           {{item}}
           <span (click)="delete()" class="material-icons delete">delete</span>
-          <span class="material-icons edit">edit_calendar</span>
+          <span class="material-icons edit"><mat-icon color="primary">edit</mat-icon></span>
         </div>
       </div>
     </div>
@@ -29,9 +29,9 @@
         (cdkDropListDropped)="drop($event)"
       >
         <div class="example-box" *ngFor="let item of inProgress" cdkDrag>
-          {{item}}
+          {{item.title}}
           <span (click)="delete()" class="material-icons delete">delete</span>
-          <span class="material-icons edit">edit_calendar</span>
+          <span class="material-icons edit"><mat-icon color="primary">edit</mat-icon></span>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
         (cdkDropListDropped)="drop($event)"
       >
         <div class="example-box" *ngFor="let item of done" cdkDrag>
-          {{item}}
+          {{item.title}}
           <span (click)="delete()" class="material-icons delete">delete</span>
         </div>
       </div>

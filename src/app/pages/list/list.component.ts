@@ -13,11 +13,11 @@ import {  MatIconModule } from '@angular/material/icon';
   imports: [CdkDropList, NgFor, CdkDrag,MatIconModule],
 })
 export class ListComponent implements OnInit {
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-  inProgress = ["ana"];
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+  todo: ITodo[] = [];
+  inProgress: ITodo[] = [];
+  done: ITodo[] = [];
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<ITodo[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
