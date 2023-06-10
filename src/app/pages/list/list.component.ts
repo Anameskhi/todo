@@ -3,13 +3,14 @@ import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ITodo } from 'src/app/common/interfaces/todo.interface';
 import { TodoService } from 'src/app/common/services/todo.service';
+import {  MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   standalone: true,
-  imports: [CdkDropList, NgFor, CdkDrag],
+  imports: [CdkDropList, NgFor, CdkDrag,MatIconModule],
 })
 export class ListComponent implements OnInit {
   todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
@@ -41,5 +42,9 @@ export class ListComponent implements OnInit {
 
   getTodo(){
     this.todoService.getTodos().subscribe(res=> this.todos = res)
+  }
+
+  delete(){
+    console.log('delete')
   }
 }

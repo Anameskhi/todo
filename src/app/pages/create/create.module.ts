@@ -30,6 +30,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule
-  ]
+  ],
+  exports:[CreateComponent]
 })
 export class CreateModule { }

@@ -16,12 +16,14 @@ import { MatCardModule } from '@angular/material/card';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { CreateModule } from './pages/create/create.module';
 import { ListComponent } from './pages/list/list.component';
+import { CommonComponent } from './pages/commoncomp/common.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    CommonComponent
  
 
 

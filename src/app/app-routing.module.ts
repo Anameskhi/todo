@@ -11,7 +11,7 @@ const routes: Routes = [
 
   {
     path: '',
-    loadChildren: () => import('./pages/create/create.module').then(m=>m.CreateModule)
+    loadChildren: () => import('./pages/commoncomp/commoncomp.module').then(m=>m.CommoncompModule)
   }
 
 

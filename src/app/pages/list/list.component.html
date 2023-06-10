@@ -1,4 +1,5 @@
-<div style="display: flex; justify-content: center;">
+
+  <div class="example-container-wrapper ">
     <div class="example-container">
       <h2>To do</h2>
       <div
@@ -7,11 +8,16 @@
         [cdkDropListData]="todo"
         [cdkDropListConnectedTo]="[doneList,inProgressList]"
         class="example-list"
-        (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of todo" cdkDrag>
+          {{item}}
+          <span (click)="delete()" class="material-icons delete">delete</span>
+          <span class="material-icons edit">edit_calendar</span>
+        </div>
       </div>
     </div>
-  
+
     <div class="example-container">
       <h2>In progress</h2>
       <div
@@ -20,11 +26,16 @@
         [cdkDropListData]="inProgress"
         [cdkDropListConnectedTo]="[doneList,todoList]"
         class="example-list"
-        (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of inProgress" cdkDrag>{{item}}</div>
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of inProgress" cdkDrag>
+          {{item}}
+          <span (click)="delete()" class="material-icons delete">delete</span>
+          <span class="material-icons edit">edit_calendar</span>
+        </div>
       </div>
     </div>
-  
+
     <div class="example-container">
       <h2>Done</h2>
       <div
@@ -33,9 +44,13 @@
         [cdkDropListData]="done"
         [cdkDropListConnectedTo]="[todoList,inProgressList]"
         class="example-list"
-        (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of done" cdkDrag>
+          {{item}}
+          <span (click)="delete()" class="material-icons delete">delete</span>
+        </div>
       </div>
     </div>
   </div>
-  
+
