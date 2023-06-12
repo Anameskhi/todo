@@ -17,6 +17,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { CreateModule } from './pages/create/create.module';
 import { ListComponent } from './pages/list/list.component';
 import { CommonComponent } from './pages/commoncomp/common.component';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CommonComponent } from './pages/commoncomp/common.component';
 
   ], 
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -41,7 +43,8 @@ import { CommonComponent } from './pages/commoncomp/common.component';
     MatCardModule,
     DragDropModule,
     CreateModule,
-    ListComponent
+    ListComponent,
+    AsyncPipe
   ],
   providers: [],
   bootstrap: [AppComponent]

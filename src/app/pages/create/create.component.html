@@ -9,9 +9,9 @@
               <input matInput formControlName="title">
             </mat-form-field><br>
             <mat-form-field style="margin-bottom: 10px;">
-              <mat-label>Select</mat-label>
+              <mat-label>Responsible Person</mat-label>
               <mat-select formControlName="responsiblePersonId">
-                <mat-option *ngFor="let person of persons$ | async" [value]="person">{{person.fullName}}</mat-option>
+                <mat-option *ngFor="let person of persons$ | async" [value]="person.id">{{person.fullName}}</mat-option>
               </mat-select>
             </mat-form-field><br>
             <mat-form-field>
@@ -20,7 +20,7 @@
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field><br>
-            <button mat-raised-button color="primary" [disabled]="form.invalid" style="margin-bottom: 10px;">Add ToDo</button>
+            <button  mat-raised-button color="primary" [disabled]="form.invalid" style="margin-bottom: 10px;">Add ToDo</button>
           </form>
         </mat-card>
       </div>

@@ -13,7 +13,7 @@ export class StorageService {
   }
 
   set(key: string, value: any):any{
-    return this.set(key, JSON.stringify(value))
+    return localStorage.setItem(key, JSON.stringify(value));
   }
 
   remove(key: string):void {

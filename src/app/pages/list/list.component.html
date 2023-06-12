@@ -1,7 +1,7 @@
 
   <div class="example-container-wrapper ">
     <div class="example-container">
-      <h2>To do</h2>
+      <h2>TO DO <span>{{todo.length > 0 ? - todo.length : ''}}</span></h2>
       <div
         cdkDropList
         #todoList="cdkDropList"
@@ -11,7 +11,7 @@
         (cdkDropListDropped)="drop($event)"
       >
         <div class="example-box" *ngFor="let item of todo" cdkDrag>
-          {{item}}
+          {{item.title}}
           <span (click)="delete()" class="material-icons delete">delete</span>
           <span class="material-icons edit"><mat-icon color="primary">edit</mat-icon></span>
         </div>
@@ -19,7 +19,7 @@
     </div>
 
     <div class="example-container">
-      <h2>In progress</h2>
+      <h2>IN PROGRESS <span>{{inProgress.length > 0 ? - inProgress.length : ''}}</span></h2>
       <div
         cdkDropList
         #inProgressList="cdkDropList"
@@ -37,7 +37,7 @@
     </div>
 
     <div class="example-container">
-      <h2>Done</h2>
+      <h2>DONE <span>{{done.length > 0 ? - done.length : ''}}</span></h2>
       <div
         cdkDropList
         #doneList="cdkDropList"
@@ -49,6 +49,8 @@
         <div class="example-box" *ngFor="let item of done" cdkDrag>
           {{item.title}}
           <span (click)="delete()" class="material-icons delete">delete</span>
+          <span class="material-icons edit success"><mat-icon>check_circle</mat-icon></span>
+
         </div>
       </div>
     </div>

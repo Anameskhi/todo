@@ -1,3 +1,4 @@
+import { TodoService } from './../../common/services/todo.service';
 import { ListComponent } from './../list/list.component';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,6 +9,7 @@ import { PersonService } from 'src/app/common/services/person.service';
 import { Observable } from 'rxjs';
 import { IPerson } from 'src/app/common/interfaces/person.interface';
 import { ITodo } from 'src/app/common/interfaces/todo.interface';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +25,9 @@ export class CreateComponent {
   done: ITodo[] = []
   persons$: Observable<IPerson[]> = this.personService.getPersons() 
   constructor(
-    private personService: PersonService
+    private personService: PersonService,
+    private todoService: TodoService,
+    private router: Router
   ){}
 
   form: FormGroup = new FormGroup({
@@ -35,6 +39,14 @@ export class CreateComponent {
 
 
   submit(){
+
+    this.todoService.addTodo(this.form.value).subscribe(res=>{
+      console.log(res)
+      this.form.reset()
+      this.todoService.todosSub.next(res)
+    
+      
+    })
 
   }
 

@@ -75,13 +75,17 @@
 
 @media (max-width: 992px) {
   .example-container {
-    flex-basis: 50%; /* Take up 50% of the available space on screens up to 992px */
+    flex-basis: 50%;
   }
 }
 
 @media (max-width: 768px) {
   .example-container {
-    flex-basis: 100%; /* Take up 100% of the available space on screens up to 768px */
-    margin: 29px 0; /* Remove horizontal margin to stack the containers vertically */
+    flex-basis: 100%;
+    margin: 29px 0;
+    width: calc(100% - 58px); /* Adjust the width to fit the screen size and remove horizontal margin */
   }
+}
+.success{
+  color: green 
 }
