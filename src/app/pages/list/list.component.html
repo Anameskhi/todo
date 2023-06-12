@@ -47,7 +47,7 @@
         (cdkDropListDropped)="drop($event)"
       >
         <div class="example-box" *ngFor="let item of done" cdkDrag>
-          {{item.title}}
+          {{item.title}} 
           <span (click)="delete()" class="material-icons delete">delete</span>
           <span class="material-icons edit success"><mat-icon>check_circle</mat-icon></span>
 
