@@ -22,8 +22,8 @@ export class TodoService {
     return of(this.todos)
   }
 
-  getTodoById(id: string | number):Observable<ITodo | undefined>{
-    return of(this.todos.find(todo => todo.id === id))
+  getTodoById(id: string): Observable<ITodo | undefined> {
+    return of(this.todos.find(todo => todo.id === id));
   }
 
   addTodo(todo: ITodo):Observable<ITodo>{
@@ -31,7 +31,7 @@ export class TodoService {
     const todos = this.todos 
     todo.id = this.generateId();
     todo.createdAt = new Date();
-    todo.status = 'pending'
+    todo.status = 'todo'
     todos.push(todo)
     this.storageService.set('todos', todos)
     return of(todo)
@@ -41,17 +41,26 @@ export class TodoService {
     return Math.random().toString(36).substr(2,9)
   }
 
-  updateTodoById(id: string | number, todo: ITodo):void{
+  updateTodoById(id: string | number, todo: ITodo):Observable<ITodo>{
+    console.log(id)
     const todos = this.todos;
     const index = todos.findIndex(todo => todo.id === id)
-    todos[index] = todo
+    todos[index] = {
+      // ...todos[index],
+      ...todo,
+      id: todos[index].id
+    
+    }
     this.storageService.set('todos', todos)
+    console.log(id)
+    return of(todo)
   }
 
-  deleteTodoById(id: string | number): void{
+  deleteTodoById(id: string | number): Observable<boolean>{
     const todos = this.todos;
     const index = todos.findIndex(todo=> todo.id === id)
     todos.splice(index,1)
     this.storageService.set('todos', todos)
+    return of(true)
   }
 }

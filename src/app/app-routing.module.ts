@@ -8,9 +8,18 @@ const routes: Routes = [
   path: '',
   component: MainLayoutComponent,
   children: [
+    {
+      path: '',
+      redirectTo: 'create',
+      pathMatch: 'full'
+    },
 
   {
-    path: '',
+    path: 'create',
+    loadChildren: () => import('./pages/commoncomp/commoncomp.module').then(m=>m.CommoncompModule)
+  },
+  {
+    path: 'update/:id',
     loadChildren: () => import('./pages/commoncomp/commoncomp.module').then(m=>m.CommoncompModule)
   }
 

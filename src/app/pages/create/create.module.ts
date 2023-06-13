@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CreateRoutingModule } from './create-routing.module';
 import { CreateComponent } from './create.component';
-import { ListModule } from '../list/list.module';
+
 import { ListComponent } from '../list/list.component';
 import { MatCardModule } from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
