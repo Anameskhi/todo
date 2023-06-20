@@ -46,9 +46,9 @@ export class TodoService {
     const todos = this.todos;
     const index = todos.findIndex(todo => todo.id === id)
     todos[index] = {
-      // ...todos[index],
+      ...todos[index],
       ...todo,
-      id: todos[index].id
+      // id: todos[index].id
     
     }
     this.storageService.set('todos', todos)

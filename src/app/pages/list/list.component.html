@@ -31,7 +31,7 @@
         <div class="example-box" *ngFor="let item of inProgress" cdkDrag>
           {{item.title}}
           <span (click)="delete(item.id)" class="material-icons delete">delete</span>
-          <span  class="material-icons edit"><mat-icon color="primary">edit</mat-icon></span>
+          <span  (click)="edit(item)"class="material-icons edit"><mat-icon color="primary">edit</mat-icon></span>
         </div>
       </div>
     </div>

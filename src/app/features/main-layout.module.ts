@@ -10,7 +10,7 @@ import { MainLayoutComponent } from './main-layout.component';
 
 @NgModule({
   declarations: [
-    NavbarComponent
+   
   ],
   imports: [
     CommonModule,

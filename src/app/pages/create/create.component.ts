@@ -23,6 +23,7 @@ export class CreateComponent implements OnInit{
   tasks: ITodo[] = []
   inProgress: ITodo[] = []
   done: ITodo[] = []
+  
   persons: IPerson[] = []
   id: string | undefined
   constructor(
