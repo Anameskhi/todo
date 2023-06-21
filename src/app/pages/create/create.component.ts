@@ -63,6 +63,7 @@ export class CreateComponent implements OnInit{
   form: FormGroup = new FormGroup({
     title: new FormControl('',Validators.required),
     responsiblePersonId: new FormControl('',Validators.required),
+    description: new FormControl(''),
     dueDate: new FormControl('',Validators.required)
   })
 

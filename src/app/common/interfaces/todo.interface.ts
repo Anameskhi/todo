@@ -11,6 +11,8 @@ export interface ITodo{
     removedAt?: Date
     responsiblePerson?: IPerson
     expanded?: boolean;
-    completedAt?: Date
+    completedAt?: Date;
+    description?: string
+
 
 }

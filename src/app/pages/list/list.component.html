@@ -10,7 +10,7 @@
         class="example-list"
         (cdkDropListDropped)="drop($event)"
       >
-      <div class="example-box" *ngFor="let item of todo" cdkDrag (click)="toggleDescription(item)">
+      <div class="example-box" *ngFor="let item of todo" cdkDrag (click)="openTodoDialog(item)">
         {{item.title}}
       
         <div class="description" [ngClass]="{ 'expanded': item.expanded }">
@@ -18,10 +18,12 @@
         </div>
       
         <div class="todo-actions">
-          <span (click)="delete(item.id)" class="material-icons delete">delete</span>
+          <span (click)="openConfirmationDialog(item.id); $event.stopPropagation()" class="material-icons delete">delete</span>
           <button mat-button (click)="edit(item)" class="material-icons edit"><mat-icon color="primary">edit</mat-icon></button>
           <div class="todo-date" [ngClass]="isDueSoon(item)">{{ item.dueDate | date: 'MMM dd, yyyy' }}</div>
         </div>
+        
+
       </div>
       </div>
     </div>
@@ -36,10 +38,10 @@
         class="example-list"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="example-box" *ngFor="let item of inProgress" cdkDrag>
+        <div class="example-box" *ngFor="let item of inProgress" cdkDrag (click)="openTodoDialog(item)">
           {{item.title}}
           <div class="todo-actions">
-            <span (click)="delete(item.id)" class="material-icons delete">delete</span>
+            <span (click)="openConfirmationDialog(item.id); $event.stopPropagation()" class="material-icons delete">delete</span>
             <button mat-button (click)="edit(item)" class="material-icons edit"><mat-icon color="primary">edit</mat-icon></button>
             <div class="todo-date" [ngClass]="isDueSoon(item)">{{ item.dueDate | date: 'MMM dd, yyyy' }}</div>
           </div>
@@ -57,10 +59,10 @@
         class="example-list"
         (cdkDropListDropped)="drop($event)">
         
-        <div class="example-box" *ngFor="let item of done" cdkDrag>
+        <div class="example-box" *ngFor="let item of done" cdkDrag (click)="openTodoDialog(item)">
           {{item.title}} 
           <div class="todo-actions">
-            <span (click)="delete(item.id)" class="material-icons delete">delete</span>
+            <span (click)="openConfirmationDialog(item.id); $event.stopPropagation()" class="material-icons delete">delete</span>
             <span class="material-icons success"><mat-icon>check_circle</mat-icon></span>            <div class="todo-date">{{ item.completedAt | date: 'MMM dd, yyyy' }}</div>
           </div>
 

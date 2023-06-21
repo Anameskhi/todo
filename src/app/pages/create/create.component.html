@@ -9,6 +9,10 @@
               <input matInput formControlName="title">
             </mat-form-field><br>
             <mat-form-field style="margin-bottom: 10px;">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description"></textarea>
+            </mat-form-field><br>
+            <mat-form-field style="margin-bottom: 10px;">
               <mat-label>Responsible Person</mat-label>
               <mat-select formControlName="responsiblePersonId">
                 <mat-option *ngFor="let person of persons" [value]="person.id">{{person.fullName}}</mat-option>

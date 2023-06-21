@@ -8,6 +8,9 @@ import {  MatIconModule } from '@angular/material/icon';
 import { StorageService } from 'src/app/common/services/storage.service';
 import { TodoStatus } from 'src/app/common/types/todo-status';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { TodoDialogComponent } from '../todo-dialog/todo-dialog.component';
 
 
 
@@ -27,7 +30,8 @@ export class ListComponent implements OnInit {
   constructor(
     private todoService: TodoService,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -108,18 +112,14 @@ export class ListComponent implements OnInit {
     }
   }
 
-  delete(id: string) {
-    this.todoService.deleteTodoById(id).subscribe(() => {
-      this.getTodos()
-    });
-  }
+
 
   edit(item: ITodo){
     console.log(item)
     this.router.navigate([`update/${item.id}`])
   }
 
-  toggleDescription(item: ITodo) {
+toggleDescription(item: ITodo) {
     item.expanded = !item.expanded;
   }
   isDueSoon(item: ITodo){
@@ -137,5 +137,33 @@ export class ListComponent implements OnInit {
     } else {
       return ''; // No additional CSS class needed
     }
+  }
+
+  openConfirmationDialog(itemId: string){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '600px',
+      data: { itemId }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        // Delete the item
+        this.delete(itemId);
+      }
+    });
+  }
+    delete(id: string) {
+      this.todoService.deleteTodoById(id).subscribe(() => {
+        this.getTodos()
+      });
+  }
+  openTodoDialog(item: ITodo) {
+    const dialogRef = this.dialog.open(TodoDialogComponent, {
+      width: '500px',
+      data: item
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }

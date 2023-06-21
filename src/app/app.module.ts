@@ -18,13 +18,18 @@ import { CreateModule } from './pages/create/create.module';
 import { ListComponent } from './pages/list/list.component';
 import { CommonComponent } from './pages/commoncomp/common.component';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { ConfirmationDialogComponent } from './pages/confirmation-dialog/confirmation-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TodoDialogComponent } from './pages/todo-dialog/todo-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     MainLayoutComponent,
-    CommonComponent
+    CommonComponent,
+    ConfirmationDialogComponent,
+    TodoDialogComponent
  
 
 
@@ -44,9 +49,12 @@ import { AsyncPipe, CommonModule } from '@angular/common';
     DragDropModule,
     CreateModule,
     ListComponent,
-    AsyncPipe
+    AsyncPipe,
+    MatDialogModule
+    
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

@@ -1,8 +1,7 @@
-import { NgModule, createComponent } from '@angular/core';
+import { NgModule,  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CommoncompRoutingModule } from './commoncomp-routing.module';
-import { CreateModule } from '../create/create.module';
 import { MatIconModule } from '@angular/material/icon';
 
 
@@ -15,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
     CommoncompRoutingModule,
     MatIconModule
     
-  ]
+  ],
+ 
 })
 export class CommoncompModule { }
