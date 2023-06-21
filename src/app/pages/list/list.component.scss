@@ -89,3 +89,37 @@
 .success{
   color: green 
 }
+.description {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.description.expanded {
+  max-height: 500px; /* Set the maximum height to accommodate the description content */
+}
+.container {
+  background-color: red;
+  /* Set the desired styles for the container */
+  /* e.g., background color, padding, margin, etc. */
+}
+.example-box {
+  position: relative;
+}
+
+.todo-date {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 12px;
+  color: gray;
+  margin-left: 8px;
+  margin-right: 4px;
+}
+.due-soon {
+  color: red;
+}
+
+.due-warning {
+  color: rgb(235, 190, 45);
+}

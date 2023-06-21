@@ -7,6 +7,7 @@ import { TodoService } from 'src/app/common/services/todo.service';
 import {  MatIconModule } from '@angular/material/icon';
 import { StorageService } from 'src/app/common/services/storage.service';
 import { TodoStatus } from 'src/app/common/types/todo-status';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 
@@ -16,6 +17,7 @@ import { TodoStatus } from 'src/app/common/types/todo-status';
   styleUrls: ['./list.component.scss'],
   standalone: true,
   imports: [CdkDropList, NgFor, CdkDrag,MatIconModule,CommonModule,RouterModule],
+
 })
 export class ListComponent implements OnInit {
   todo: ITodo[] = [];
@@ -31,15 +33,27 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.getTodos();
   }
-  todos = this.todoService.todosSub.subscribe(res => { this.todo = [res, ...this.todo] })
+  todos = this.todoService.todosSub.subscribe(res => { 
+    this.todo = [res, ...this.todo] .sort((a, b) => this.sortByTimestamp(a, b));
+    this.saveListsToStorage();
+  })
 
   getTodos() {
     this.todoService.getTodos().subscribe((todos: ITodo[]) => {
-      this.todo = todos.filter((todo) => todo.status === 'todo');
+  
+      this.todo = todos.filter((todo) => todo.status === 'todo')
       this.inProgress = todos.filter((todo) => todo.status === 'pending');
       this.done = todos.filter((todo) => todo.status === 'completed');
+
     });
+
   }
+  sortByTimestamp(a: ITodo, b: ITodo): number {
+    const timestampA = new Date(a.dueDate).getTime();
+    const timestampB = new Date(b.dueDate).getTime();
+    return timestampA - timestampB;
+  }
+  // .sort((a, b) => this.sortByTimestamp(a, b));
 
   saveListsToStorage() {
     const todos = [...this.todo, ...this.inProgress, ...this.done];
@@ -57,6 +71,11 @@ export class ListComponent implements OnInit {
         event.currentIndex
       );
     }
+    if (event.container.id === 'cdk-drop-list-2') {
+      const item = event.container.data[event.currentIndex];
+      item.completedAt = new Date();
+    }
+  
 
     // Update the status of the items in the source container
     this.updateItemStatus(event.previousContainer.data, event.previousContainer.id);
@@ -98,5 +117,25 @@ export class ListComponent implements OnInit {
   edit(item: ITodo){
     console.log(item)
     this.router.navigate([`update/${item.id}`])
+  }
+
+  toggleDescription(item: ITodo) {
+    item.expanded = !item.expanded;
+  }
+  isDueSoon(item: ITodo){
+    const now = new Date();
+    const dueDate = new Date(item.dueDate);
+    const timeDiff = dueDate.getTime() - now.getTime();
+    const oneDayInMillis = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+  
+    const threeDaysInMillis = 3 * oneDayInMillis; // 3 days in milliseconds
+
+    if (timeDiff < oneDayInMillis) {
+      return 'due-soon';
+    } else if (timeDiff < threeDaysInMillis) {
+      return 'due-warning';
+    } else {
+      return ''; // No additional CSS class needed
+    }
   }
 }
