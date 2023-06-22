@@ -21,6 +21,8 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { ConfirmationDialogComponent } from './pages/confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TodoDialogComponent } from './pages/todo-dialog/todo-dialog.component';
+import { MatDatepickerInput } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { TodoDialogComponent } from './pages/todo-dialog/todo-dialog.component';
     MainLayoutComponent,
     CommonComponent,
     ConfirmationDialogComponent,
-    TodoDialogComponent
+    TodoDialogComponent,
+    
  
 
 
@@ -50,7 +53,9 @@ import { TodoDialogComponent } from './pages/todo-dialog/todo-dialog.component';
     CreateModule,
     ListComponent,
     AsyncPipe,
-    MatDialogModule
+    MatDialogModule,
+    MatNativeDateModule
+    
     
   ],
   providers: [],

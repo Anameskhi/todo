@@ -39,7 +39,6 @@ export class ListComponent implements OnInit {
   }
   todos = this.todoService.todosSub.subscribe(res => { 
     this.todo = [res, ...this.todo] .sort((a, b) => this.sortByTimestamp(a, b));
-    this.saveListsToStorage();
   })
 
   getTodos() {
