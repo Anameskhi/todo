@@ -1,0 +1,73 @@
+
+  <div class="example-container-wrapper ">
+    <div class="example-container">
+      <h2>TO DO <span>{{todo.length > 0 ? - todo.length : ''}}</span></h2>
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="[doneList,inProgressList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+      <div class="example-box" *ngFor="let item of todo" cdkDrag (click)="openTodoDialog(item)">
+        {{item.title}}
+      
+        <div class="description" [ngClass]="{ 'expanded': item.expanded }">
+          <p>ana</p>
+        </div>
+      
+        <div class="todo-actions">
+          <span (click)="openConfirmationDialog(item.id); $event.stopPropagation()" class="material-icons delete">delete</span>
+          <button mat-button (click)="edit(item)" class="material-icons edit"><mat-icon color="primary">edit</mat-icon></button>
+          <div class="todo-date" [ngClass]="isDueSoon(item)">{{ item.dueDate | date: 'MMM dd, yyyy' }}</div>
+        </div>
+        
+
+      </div>
+      </div>
+    </div>
+    <!-- "  -->
+    <div class="example-container">
+      <h2>IN PROGRESS <span>{{inProgress.length > 0 ? - inProgress.length : ''}}</span></h2>
+      <div
+        cdkDropList
+        #inProgressList="cdkDropList"
+        [cdkDropListData]="inProgress"
+        [cdkDropListConnectedTo]="[doneList,todoList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of inProgress" cdkDrag (click)="openTodoDialog(item)">
+          {{item.title}}
+          <div class="todo-actions">
+            <span (click)="openConfirmationDialog(item.id); $event.stopPropagation()" class="material-icons delete">delete</span>
+            <button mat-button (click)="edit(item)" class="material-icons edit"><mat-icon color="primary">edit</mat-icon></button>
+            <div class="todo-date" [ngClass]="isDueSoon(item)">{{ item.dueDate | date: 'MMM dd, yyyy' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="example-container">
+      <h2>DONE <span>{{done.length > 0 ? - done.length : ''}}</span></h2>
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[todoList,inProgressList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        
+        <div class="example-box" *ngFor="let item of done" cdkDrag (click)="openTodoDialog(item)">
+          {{item.title}} 
+          <div class="todo-actions">
+            <span (click)="openConfirmationDialog(item.id); $event.stopPropagation()" class="material-icons delete">delete</span>
+            <span class="material-icons success"><mat-icon>check_circle</mat-icon></span>            <div class="todo-date">{{ item.completedAt | date: 'MMM dd, yyyy' }}</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+

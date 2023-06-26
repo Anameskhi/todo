@@ -1,0 +1,24 @@
+.custom-dialog-container {
+    width: 500px; /* Adjust the width as per your requirement */
+  }
+
+  .custom-dialog-title {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .custom-dialog-content {
+    color: #666;
+    font-size: 16px;
+  }
+
+  .custom-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+
+  .custom-dialog-button {
+    margin-left: 8px;
+  }
