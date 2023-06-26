@@ -13,6 +13,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule, matDatepickerAnimations } from '@angular/material/datepicker';
+import { NgToastComponent, NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatDatepickerModule, matDatepickerAnimations } from '@angular/material/
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgToastModule
   ],
   exports:[CreateComponent]
 })

@@ -5,6 +5,7 @@ import { TodoService } from 'src/app/common/services/todo.service';
 import { PersonService } from 'src/app/common/services/person.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ITodo } from 'src/app/common/interfaces/todo.interface';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-create',
@@ -23,7 +24,8 @@ export class CreateComponent implements OnInit {
     private personService: PersonService,
     private todoService: TodoService,
     private router: Router,
-    private actroute: ActivatedRoute
+    private actroute: ActivatedRoute,
+    private toastSrv: NgToastService
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +73,7 @@ export class CreateComponent implements OnInit {
         .subscribe((res) => {
           this.todoService.todosSub.next(res);
           this.form.reset();
+          this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully created", duration: 3000 })
           this.router.navigate(['create']);
         });
     } else {
@@ -81,6 +84,7 @@ export class CreateComponent implements OnInit {
         })
         .subscribe((res) => {
           this.todoService.todosSub.next(res);
+          this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully updated", duration: 3000 })
           this.form.reset();
           this.router.navigate(['create']);
         });

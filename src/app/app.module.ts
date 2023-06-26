@@ -1,4 +1,4 @@
-import { NgModule, createComponent } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, createComponent } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TodoDialogComponent } from './pages/todo-dialog/todo-dialog.component';
 import { MatDatepickerInput } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NgToastComponent, NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     CommonComponent,
     ConfirmationDialogComponent,
     TodoDialogComponent,
-    
+
  
 
 
@@ -54,12 +55,15 @@ import { MatNativeDateModule } from '@angular/material/core';
     ListComponent,
     AsyncPipe,
     MatDialogModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgToastModule,
     
     
   ],
   providers: [],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 
 })
 export class AppModule { }

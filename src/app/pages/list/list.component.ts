@@ -11,6 +11,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { TodoDialogComponent } from '../todo-dialog/todo-dialog.component';
+import { NgToastService } from 'ng-angular-popup';
 
 
 
@@ -31,7 +32,8 @@ export class ListComponent implements OnInit {
     private todoService: TodoService,
     private storageService: StorageService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toastSrv: NgToastService 
   ) {}
 
   ngOnInit(): void {
@@ -153,6 +155,7 @@ toggleDescription(item: ITodo) {
   }
     delete(id: string) {
       this.todoService.deleteTodoById(id).subscribe(() => {
+        this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully deleted", duration: 3000 })
         this.getTodos()
       });
   }
