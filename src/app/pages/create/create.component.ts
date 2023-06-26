@@ -59,7 +59,7 @@ export class CreateComponent implements OnInit {
     this.personService.getPersons().subscribe((res) => (this.persons = res));
   }
 
-  submit() {
+  submit() { 
     const { responsiblePersonId } = this.form.value;
     let responsiblePerson: IPerson | undefined;
     if (responsiblePersonId) {
