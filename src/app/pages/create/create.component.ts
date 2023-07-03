@@ -71,10 +71,9 @@ export class CreateComponent implements OnInit {
       this.todoService
         .addTodo({ ...this.form.value, responsiblePerson: responsiblePerson })
         .subscribe((res) => {
-          this.todoService.todosSub.next(res);
-          this.form.reset();
+          this.createEdit(res)
           this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully created", duration: 3000 })
-          this.router.navigate(['create']);
+         
         });
     } else {
       this.todoService
@@ -83,10 +82,8 @@ export class CreateComponent implements OnInit {
           responsiblePerson: responsiblePerson,
         })
         .subscribe((res) => {
-          this.todoService.todosSub.next(res);
+          this.createEdit(res)
           this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully updated", duration: 3000 })
-          this.form.reset();
-          this.router.navigate(['create']);
         });
     }
   }
@@ -104,4 +101,11 @@ export class CreateComponent implements OnInit {
     currentDate.setHours(0, 0, 0, 0); // Set the time to midnight for comparison
     return date >= currentDate;
   };
+
+  createEdit(res: ITodo){
+    this.todoService.todosSub.next(res);
+    this.form.reset();
+    this.router.navigate(['create']);
+  }
+  
 }
