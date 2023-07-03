@@ -24,9 +24,14 @@
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field><br>
-            <button mat-raised-button color="primary" [disabled]="form.invalid" style="margin-bottom: 10px;">
-              {{ id ? 'Update' : 'Add ToDo' }}
-            </button>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+              <button mat-raised-button color="primary" [disabled]="form.invalid">
+                {{ id ? 'Update' : 'Add ToDo' }}
+              </button>
+              <button *ngIf="id" routerLink="/" type="button" mat-raised-button color="primary">
+                Close
+              </button>
+            </div>
           </form>
         </mat-card>
       </div>
