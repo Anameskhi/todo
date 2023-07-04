@@ -20,7 +20,7 @@
       
         <div class="todo-actions">
           <span (click)="openConfirmationDialog(item.id); $event.stopPropagation()" class="material-icons delete">delete</span>
-          <button mat-button (click)="edit(item)" class="material-icons edit"><mat-icon color="primary">edit</mat-icon></button>
+          <button mat-button (click)="edit(item); $event.stopPropagation()" class="material-icons edit"><mat-icon color="primary">edit</mat-icon></button>
           <div class="todo-date" [ngClass]="isDueSoon(item)">{{ item.dueDate | date: 'MMM dd, yyyy' }}</div>
         </div>
         
@@ -44,7 +44,7 @@
           {{item.title}}
           <div class="todo-actions">
             <span (click)="openConfirmationDialog(item.id); $event.stopPropagation()" class="material-icons delete">delete</span>
-            <button mat-button (click)="edit(item)" class="material-icons edit"><mat-icon color="primary">edit</mat-icon></button>
+            <button mat-button (click)="edit(item); $event.stopPropagation()" class="material-icons edit"><mat-icon color="primary">edit</mat-icon></button>
             <div class="todo-date" [ngClass]="isDueSoon(item)">{{ item.dueDate | date: 'MMM dd, yyyy' }}</div>
           </div>
         </div>

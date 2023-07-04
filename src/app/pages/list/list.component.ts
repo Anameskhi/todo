@@ -39,9 +39,10 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.getAllTodos()
     this.getTodos()
-    this.saveListsToStorage()
+    
 
   }
+ 
 
  getAllTodos(){
   this.todoService.getTodos().subscribe((todos) => {
@@ -112,7 +113,7 @@ export class ListComponent implements OnInit {
         item.status = status;
         this.todoService.updateTodoStatus(item.id, status).subscribe();
       }
-      this.saveListsToStorage()
+    
 
     });
   }
@@ -133,7 +134,6 @@ export class ListComponent implements OnInit {
 
 
   edit(item: ITodo){
-    console.log(item)
     this.router.navigate([`update/${item.id}`])
   }
 
