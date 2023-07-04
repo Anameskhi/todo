@@ -1,3 +1,4 @@
+import { TodoStatus } from './../../common/types/todo-status';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IPerson } from 'src/app/common/interfaces/person.interface';
@@ -16,9 +17,9 @@ export class CreateComponent implements OnInit {
   tasks: ITodo[] = [];
   inProgress: ITodo[] = [];
   done: ITodo[] = [];
-
   persons: IPerson[] = [];
   id: string | undefined;
+  status = ["ToDo", "In progress", "Done"]
 
   constructor(
     private personService: PersonService,
@@ -53,6 +54,7 @@ export class CreateComponent implements OnInit {
     responsiblePersonId: new FormControl('', Validators.required),
     description: new FormControl(''),
     dueDate: new FormControl('', Validators.required),
+    status: new FormControl('', Validators.required)
   });
 
   getPersons() {
@@ -71,10 +73,9 @@ export class CreateComponent implements OnInit {
       this.todoService
         .addTodo({ ...this.form.value, responsiblePerson: responsiblePerson })
         .subscribe((res) => {
-          this.todoService.todosSub.next(res);
-          this.form.reset();
+          this.createEdit(res)
           this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully created", duration: 3000 })
-          this.router.navigate(['create']);
+         
         });
     } else {
       this.todoService
@@ -83,17 +84,15 @@ export class CreateComponent implements OnInit {
           responsiblePerson: responsiblePerson,
         })
         .subscribe((res) => {
-          this.todoService.todosSub.next(res);
+          this.createEdit(res)
           this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully updated", duration: 3000 })
-          this.form.reset();
-          this.router.navigate(['create']);
         });
     }
   }
 
   getTodos() {
-    this.todoService.getTodos().subscribe((res) => console.log(res));
-  }
+    this.todoService.getTodos().subscribe((res) => this.tasks = res)
+   }
   
   dateFilter = (date: Date | null): boolean => {
     if (date === null) {
@@ -104,4 +103,11 @@ export class CreateComponent implements OnInit {
     currentDate.setHours(0, 0, 0, 0); // Set the time to midnight for comparison
     return date >= currentDate;
   };
+
+  createEdit(res: ITodo){
+    this.todoService.todosSub.next(res);
+    this.form.reset();
+    this.router.navigate(['create']);
+  }
+  
 }

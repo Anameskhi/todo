@@ -1,4 +1,4 @@
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule, NgFor } from '@angular/common';
 import {  Component, OnInit } from '@angular/core';
@@ -27,28 +27,47 @@ export class ListComponent implements OnInit {
   todo: ITodo[] = [];
   inProgress: ITodo[] = [];
   done: ITodo[] = [];
-
+  id?: string
   constructor(
     private todoService: TodoService,
     private storageService: StorageService,
     private router: Router,
     private dialog: MatDialog,
-    private toastSrv: NgToastService 
+    private toastSrv: NgToastService,
+    private actRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getTodos();
+    this.actRoute.params.subscribe((params) => {
+      this.id = params['id'];
+      
+    });
+    this.getAllTodos()
+    this.getTodos()
+    
+
   }
-  todos = this.todoService.todosSub.subscribe(res => { 
-    this.todo = [res, ...this.todo] .sort((a, b) => this.sortByTimestamp(a, b));
-  })
+ 
+
+ getAllTodos(){
+  this.todoService.getTodos().subscribe((todos) => {
+    this.todo = todos.filter((todo) => todo.status === 'ToDo');
+    this.inProgress = todos.filter((todo) => todo.status === 'In progress');
+    this.done = todos.filter((todo) => todo.status === 'Done');
+  });
+ }
 
   getTodos() {
-    this.todoService.getTodos().subscribe((todos: ITodo[]) => {
-  
-      this.todo = todos.filter((todo) => todo.status === 'todo')
-      this.inProgress = todos.filter((todo) => todo.status === 'pending');
-      this.done = todos.filter((todo) => todo.status === 'completed');
+    this.todoService.todosSub.subscribe(res => {
+      if(res.status == 'ToDo'){
+        this.todo = [res, ...this.todo]
+      }else if(res.status == "In progress"){
+        this.inProgress = [res, ...this.inProgress]
+      }else{
+        this.done = [res, ...this.done]
+      }
+
+
 
     });
 
@@ -80,7 +99,6 @@ export class ListComponent implements OnInit {
       const item = event.container.data[event.currentIndex];
       item.completedAt = new Date();
     }
-  
 
     // Update the status of the items in the source container
     this.updateItemStatus(event.previousContainer.data, event.previousContainer.id);
@@ -94,29 +112,33 @@ export class ListComponent implements OnInit {
 
   updateItemStatus(items: ITodo[], containerId: string) {
     const status = this.getListStatus(containerId);
-
+  
     items.forEach((item) => {
-      item.status = status;
+      if (item.status !== status) {
+        item.status = status;
+        this.todoService.updateTodoStatus(item.id, status).subscribe();
+      }
+    
+
     });
   }
 
   getListStatus(containerId: string): TodoStatus {
     switch (containerId) {
-      case 'cdk-drop-list-0':
-        return 'todo';
-      case 'cdk-drop-list-1':
-        return 'pending';
-      case 'cdk-drop-list-2':
-        return 'completed';
+      case '0':
+        return 'ToDo';
+      case '1':
+        return 'In progress';
+      case '2':
+        return 'Done';
       default:
-        return 'todo';
+        return 'ToDo';
     }
   }
 
 
 
   edit(item: ITodo){
-    console.log(item)
     this.router.navigate([`update/${item.id}`])
   }
 
@@ -156,8 +178,14 @@ toggleDescription(item: ITodo) {
     delete(id: string) {
       this.todoService.deleteTodoById(id).subscribe(() => {
         this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully deleted", duration: 3000 })
-        this.getTodos()
+        if (id === this.id) {
+          this.id = undefined; // Clear the id property
+          this.router.navigate(['create']); // Navigate to the create route
+        }
+        this.getAllTodos()
       });
+      
+
   }
   openTodoDialog(item: ITodo) {
     const dialogRef = this.dialog.open(TodoDialogComponent, {

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
 import { ITodo } from '../interfaces/todo.interface';
 import { StorageService } from './storage.service';
+import { v4 as uuidv4 } from 'uuid';
+import { TodoStatus } from '../types/todo-status';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +16,11 @@ export class TodoService {
     private storageService: StorageService
   ) { }
 
-  get todos(): ITodo[]{
+  get todos(): ITodo[] {
     return this.storageService.get('todos') || []
   }
 
-  getTodos():Observable<ITodo[]>{
+  getTodos(): Observable<ITodo[]> {
     return of(this.todos)
   }
 
@@ -26,22 +28,18 @@ export class TodoService {
     return of(this.todos.find(todo => todo.id === id));
   }
 
-  addTodo(todo: ITodo):Observable<ITodo>{
+  addTodo(todo: ITodo): Observable<ITodo> {
     console.log(todo)
-    const todos = this.todos 
-    todo.id = this.generateId();
+    const todos = this.todos
+    todo.id = uuidv4();
     todo.createdAt = new Date();
-    todo.status = 'todo'
+    todo.status = todo.status
     todos.push(todo)
     this.storageService.set('todos', todos)
     return of(todo)
   }
 
-  generateId():string{
-    return Math.random().toString(36).substr(2,9)
-  }
-
-  updateTodoById(id: string | number, todo: ITodo):Observable<ITodo>{
+  updateTodoById(id: string | number, todo: ITodo): Observable<ITodo> {
     console.log(id)
     const todos = this.todos;
     const index = todos.findIndex(todo => todo.id === id)
@@ -49,18 +47,40 @@ export class TodoService {
       ...todos[index],
       ...todo,
       // id: todos[index].id
-    
+
     }
     this.storageService.set('todos', todos)
     console.log(id)
     return of(todo)
   }
 
-  deleteTodoById(id: string | number): Observable<boolean>{
+  deleteTodoById(id: string | number): Observable<boolean> {
     const todos = this.todos;
-    const index = todos.findIndex(todo=> todo.id === id)
-    todos.splice(index,1)
+    const index = todos.findIndex(todo => todo.id === id)
+    todos.splice(index, 1)
     this.storageService.set('todos', todos)
     return of(true)
   }
+  
+  updateTodoStatus(id: string, status: TodoStatus): Observable<ITodo | undefined> {
+    const todos = this.todos;
+    const index = todos.findIndex(todo => todo.id === id);
+    if (index !== -1) {
+      todos[index].status = status;
+      this.storageService.set('todos', todos);
+      return of(todos[index]);
+    } else {
+      return of(undefined);
+    }
+  }
+
+  // statusCheck(status: string){
+  //   if(status == "ToDo"){
+  //     return "todo"
+  //   }else if(status == "In progress"){
+  //     return "pending"
+  //   }else{
+  //     return "completed"
+  //   }
+  // }
 }
