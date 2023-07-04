@@ -1,4 +1,4 @@
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule, NgFor } from '@angular/common';
 import {  Component, OnInit } from '@angular/core';
@@ -27,16 +27,21 @@ export class ListComponent implements OnInit {
   todo: ITodo[] = [];
   inProgress: ITodo[] = [];
   done: ITodo[] = [];
-
+  id?: string
   constructor(
     private todoService: TodoService,
     private storageService: StorageService,
     private router: Router,
     private dialog: MatDialog,
-    private toastSrv: NgToastService 
+    private toastSrv: NgToastService,
+    private actRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.actRoute.params.subscribe((params) => {
+      this.id = params['id'];
+      
+    });
     this.getAllTodos()
     this.getTodos()
     
@@ -173,8 +178,14 @@ toggleDescription(item: ITodo) {
     delete(id: string) {
       this.todoService.deleteTodoById(id).subscribe(() => {
         this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully deleted", duration: 3000 })
+        if (id === this.id) {
+          this.id = undefined; // Clear the id property
+          this.router.navigate(['create']); // Navigate to the create route
+        }
         this.getAllTodos()
       });
+      
+
   }
   openTodoDialog(item: ITodo) {
     const dialogRef = this.dialog.open(TodoDialogComponent, {
