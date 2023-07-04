@@ -1,3 +1,4 @@
+import { TodoStatus } from './../../common/types/todo-status';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IPerson } from 'src/app/common/interfaces/person.interface';
@@ -16,9 +17,9 @@ export class CreateComponent implements OnInit {
   tasks: ITodo[] = [];
   inProgress: ITodo[] = [];
   done: ITodo[] = [];
-
   persons: IPerson[] = [];
   id: string | undefined;
+  status = ["ToDo", "In progress", "Done"]
 
   constructor(
     private personService: PersonService,
@@ -53,6 +54,7 @@ export class CreateComponent implements OnInit {
     responsiblePersonId: new FormControl('', Validators.required),
     description: new FormControl(''),
     dueDate: new FormControl('', Validators.required),
+    status: new FormControl('', Validators.required)
   });
 
   getPersons() {
@@ -89,8 +91,8 @@ export class CreateComponent implements OnInit {
   }
 
   getTodos() {
-    this.todoService.getTodos().subscribe((res) => console.log(res));
-  }
+    this.todoService.getTodos().subscribe((res) => this.tasks = res)
+   }
   
   dateFilter = (date: Date | null): boolean => {
     if (date === null) {

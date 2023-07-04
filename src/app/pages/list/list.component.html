@@ -4,6 +4,7 @@
       <h2>TO DO <span>{{todo.length > 0 ? - todo.length : ''}}</span></h2>
       <div
         cdkDropList
+        id="0"
         #todoList="cdkDropList"
         [cdkDropListData]="todo"
         [cdkDropListConnectedTo]="[doneList,inProgressList]"
@@ -32,6 +33,7 @@
       <h2>IN PROGRESS <span>{{inProgress.length > 0 ? - inProgress.length : ''}}</span></h2>
       <div
         cdkDropList
+        id="1" 
         #inProgressList="cdkDropList"
         [cdkDropListData]="inProgress"
         [cdkDropListConnectedTo]="[doneList,todoList]"
@@ -53,6 +55,7 @@
       <h2>DONE <span>{{done.length > 0 ? - done.length : ''}}</span></h2>
       <div
         cdkDropList
+        id="2"
         #doneList="cdkDropList"
         [cdkDropListData]="done"
         [cdkDropListConnectedTo]="[todoList,inProgressList]"
@@ -64,6 +67,7 @@
           <div class="todo-actions">
             <span (click)="openConfirmationDialog(item.id); $event.stopPropagation()" class="material-icons delete">delete</span>
             <span class="material-icons success"><mat-icon>check_circle</mat-icon></span>            <div class="todo-date">{{ item.completedAt | date: 'MMM dd, yyyy' }}</div>
+
           </div>
 
         </div>

@@ -18,6 +18,12 @@
                 <mat-option *ngFor="let person of persons" [value]="person.id">{{person.fullName}}</mat-option>
               </mat-select>
             </mat-form-field><br>
+            <mat-form-field style="margin-bottom: 10px;">
+              <mat-label>Todo status</mat-label>
+              <mat-select    formControlName="status">
+                <mat-option *ngFor="let status of status" [value]="status">{{status}}</mat-option>
+              </mat-select>
+            </mat-form-field><br>
             <mat-form-field>
               <mat-label>Select Date</mat-label>
               <input formControlName="dueDate" matInput [matDatepicker]="picker" placeholder="Choose a date" [matDatepickerFilter]="dateFilter">
