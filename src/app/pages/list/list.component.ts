@@ -177,7 +177,7 @@ toggleDescription(item: ITodo) {
   }
     delete(id: string) {
       this.todoService.deleteTodoById(id).subscribe(() => {
-        this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully deleted", duration: 3000 })
+        this.toastSrv.success({type: 'success', detail: "Success Message", summary: "ToDo successfully deleted", duration: 3000 })
         if (id === this.id) {
           this.id = undefined; // Clear the id property
           this.router.navigate(['create']); // Navigate to the create route

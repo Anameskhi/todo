@@ -74,7 +74,12 @@ export class CreateComponent implements OnInit {
         .addTodo({ ...this.form.value, responsiblePerson: responsiblePerson })
         .subscribe((res) => {
           this.createEdit(res)
-          this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully created", duration: 3000 })
+          this.toastSrv.success({
+            type: 'success', // Specify the type as 'success'
+            detail: 'Success Message',
+            summary: 'ToDo successfully created',
+            duration: 3000
+          });
          
         });
     } else {
@@ -85,7 +90,7 @@ export class CreateComponent implements OnInit {
         })
         .subscribe((res) => {
           this.createEdit(res)
-          this.toastSrv.success({ detail: "Success Message", summary: "ToDo successfully updated", duration: 3000 })
+          this.toastSrv.success({ type: 'success', detail: "Success Message", summary: "ToDo successfully updated", duration: 3000 });
         });
     }
   }

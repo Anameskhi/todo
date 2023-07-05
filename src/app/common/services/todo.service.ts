@@ -29,7 +29,6 @@ export class TodoService {
   }
 
   addTodo(todo: ITodo): Observable<ITodo> {
-    console.log(todo)
     const todos = this.todos
     todo.id = uuidv4();
     todo.createdAt = new Date();
